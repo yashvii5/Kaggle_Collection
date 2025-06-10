@@ -26,4 +26,7 @@ if __name__ == "__main__":
     # Check to make sure missing values are handled
     print(data.isnull().sum())
 
+    # Save data as csv file
+    data.to_csv(os.path.join(csv_dir, 'simpleImputer.csv'))
+
 
