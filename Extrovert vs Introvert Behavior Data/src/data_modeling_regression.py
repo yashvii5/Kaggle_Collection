@@ -106,3 +106,6 @@ if __name__ == "__main__":
     # Final null check
     print("\nFinal null counts after imputation:\n")
     print(data.isnull().sum())
+
+    # Save data as csv file
+    data.to_csv(os.path.join(csv_dir, 'regression.csv'))
