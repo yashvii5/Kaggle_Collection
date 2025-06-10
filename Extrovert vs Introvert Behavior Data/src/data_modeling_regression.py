@@ -5,6 +5,8 @@ from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import HistGradientBoostingClassifier
+from sklearn.experimental import enable_iterative_imputer
+from sklearn.impute import IterativeImputer
 
 
 # Path to Directories
@@ -89,6 +91,10 @@ if __name__ == "__main__":
     for col in numeric_cols:
         predictors = [c for c in data.columns if c != col and c in numeric_cols + categorical_cols]
         data[col] = regression_impute(data, col, predictors)
+
+    # Final cleanup for remaining numeric NaNs using IterativeImputer
+    iter_imputer = IterativeImputer(random_state=0)
+    data[numeric_cols] = iter_imputer.fit_transform(data[numeric_cols])
 
     # Impute categorical columns
     for col in categorical_cols:
